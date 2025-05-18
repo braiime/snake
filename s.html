@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Snake Game</title>
+  <link rel="stylesheet" href="s.css">
+</head>
+<body>
+  <main class="container">
+    <section class="scoreboard" id="scoreboard">
+      <span>Score: <span id="score">0</span></span>
+      <span>High Score: <span id="highScore">0</span></span>
+    </section>
+    <form id="difficultyForm" aria-label="Select difficulty">
+      <fieldset>
+        <legend>Difficulty</legend>
+        <label>
+          <input type="radio" name="difficulty" value="easy" checked>
+          Easy
+        </label>
+        <label>
+          <input type="radio" name="difficulty" value="medium">
+          Medium
+        </label>
+        <label>
+          <input type="radio" name="difficulty" value="hard">
+          Hard
+        </label>
+      </fieldset>
+    </form>
+    <canvas id="gameCanvas" width="400" height="400" tabindex="0" aria-label="Snake game"></canvas>
+    <!-- Mobile Touch Controls -->
+    <nav class="touch-controls" aria-label="Game controls">
+      <div class="touch-row">
+        <button type="button" class="touch-btn" id="btn-up" aria-label="Up">&#8593;</button>
+      </div>
+      <div class="touch-row">
+        <button type="button" class="touch-btn" id="btn-left" aria-label="Left">&#8592;</button>
+        <button type="button" class="touch-btn" id="btn-down" aria-label="Down">&#8595;</button>
+        <button type="button" class="touch-btn" id="btn-right" aria-label="Right">&#8594;</button>
+      </div>
+    </nav>
+    <button id="startBtn" type="button">Start Game</button>
+    <div class="game-over" id="gameOver">
+      <p>Game Over</p>
+      <p>Your Score: <span id="finalScore">0</span></p>
+      <p>Send me your highest score on IG to win something!</p>
+      <button id="restartBtn" type="button">Restart</button>
+    </div>
+    <footer class="footer">
+      <small>
+        &copy; <span id="year"></span> Made with <span style="color:#2dff7c;">&#10084;</span> by <a href="https://github.com/braiime" target="_blank" rel="noopener" style="color:#2dff7c;text-decoration:none;">@braiime</a>
+      </small>
+    </footer>
+  </main>
+  <script src="s.js"></script>
+  <script>
+    // Touch controls for mobile
+    const btnUp = document.getElementById('btn-up');
+    const btnDown = document.getElementById('btn-down');
+    const btnLeft = document.getElementById('btn-left');
+    const btnRight = document.getElementById('btn-right');
+    function sendKey(key) {
+      window.dispatchEvent(new KeyboardEvent('keydown', {key}));
+    }
+    if (btnUp && btnDown && btnLeft && btnRight) {
+      btnUp.addEventListener('touchstart', e => { e.preventDefault(); sendKey('ArrowUp'); });
+      btnDown.addEventListener('touchstart', e => { e.preventDefault(); sendKey('ArrowDown'); });
+      btnLeft.addEventListener('touchstart', e => { e.preventDefault(); sendKey('ArrowLeft'); });
+      btnRight.addEventListener('touchstart', e => { e.preventDefault(); sendKey('ArrowRight'); });
+      // Also support mouse for testing on desktop
+      btnUp.addEventListener('mousedown', e => { e.preventDefault(); sendKey('ArrowUp'); });
+      btnDown.addEventListener('mousedown', e => { e.preventDefault(); sendKey('ArrowDown'); });
+      btnLeft.addEventListener('mousedown', e => { e.preventDefault(); sendKey('ArrowLeft'); });
+      btnRight.addEventListener('mousedown', e => { e.preventDefault(); sendKey('ArrowRight'); });
+    }
+    // Set copyright year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
